@@ -4,8 +4,8 @@ if (navigator.geolocation) {
     function (position) {
       const { latitude, longitude } = position.coords;
       socket.emit("send-location", {
-         latitude,
-       longitude,
+        latitude,
+        longitude,
       });
     },
     function (err) {
