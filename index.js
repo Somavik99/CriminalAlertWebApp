@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const { Server } = require("socket.io");
 const http = require("http");
+const mongoose = require("mongoose"); 
 // const ejs = require("ejs")
 
 const app = express();
