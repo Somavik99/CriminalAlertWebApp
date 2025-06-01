@@ -19,7 +19,12 @@ const FeatureSchema = new mongoose.Schema({
   location: {},
   date:{
     type:Date,
-    default:Date.now()
+    default:Date.now(),
+    required:true
+  },
+  contactInfo:{
+    type:String,
+    required:true,
     
   }
 });
