@@ -52,3 +52,7 @@ user:{
 }
 
 });
+
+
+const featureModel = mongoose.model("Feature",FeatureSchema)
+module.exports = featureModel

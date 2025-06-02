@@ -3,18 +3,36 @@ const express = require("express");
 const path = require("path");
 const { Server } = require("socket.io");
 const http = require("http");
-const mongoose = require("mongoose"); 
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 // const ejs = require("ejs")
 
+dotenv.config();
+
 const app = express();
-app.use(express.json())
+
+mongoose.set("strictQuery", false);
+
+app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server);
 const PORT = process.env.PORT || 3000;
+const mongoURI = process.env.MONGO_DB_URI;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
+
+// connect mongoDB
+
+async function ConnectMongoDB() {
+  try {
+    await mongoose.connect(mongoURI);
+    console.log("DB connected successfully");
+  } catch (err) {
+    console.error("DB connection failed:", err.message);
+  }
+}
 
 io.on("connection", function (socket) {
   socket.on("send-location", function (data) {
@@ -33,7 +51,14 @@ app.get("/", function (req, res) {
   });
 });
 
-server.listen(PORT, function () {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`http://localhost:${PORT}`);
-});
+ConnectMongoDB()
+  .then(() => {
+    server.listen(PORT, function () {
+      console.log(`Server is running on port ${PORT}`);
+      console.log(`http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Error in connecting to MongoDB:", err.message);
+    process.exit(1);
+  });
