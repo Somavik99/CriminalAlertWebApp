@@ -16,15 +16,39 @@ const FeatureSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {},
-  date:{
-    type:Date,
-    default:Date.now(),
+  image: {
+    type: String,
     required:true
   },
-  contactInfo:{
+  location: {},
+  date: {
+    type: Date,
+    default: Date.now(),
+    required: true,
+  },
+  contactInfo: {
+    mobile: {
+      type: Number,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+  
+// setting up the auth
+
+user:{
+  id:{
+    type:mongoose.Schema.Types.ObjectId
+  },
+  name:{
     type:String,
-    required:true,
-    
+  },
+  email:{
+    type:String
   }
+}
+
 });
