@@ -5,13 +5,14 @@ const { Server } = require("socket.io");
 const http = require("http");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-// const ejs = require("ejs")
+
 
 dotenv.config();
 
 const app = express();
 
 mongoose.set("strictQuery", false);
+
 
 app.use(express.json());
 const server = http.createServer(app);
