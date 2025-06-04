@@ -18,9 +18,18 @@ const FeatureSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required:true
+    required: true,
   },
-  location: {},
+  location: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "location",
+    },
+    coordinates: {
+      type: String,
+      required: true,
+    },
+  },
   date: {
     type: Date,
     default: Date.now(),
@@ -36,23 +45,21 @@ const FeatureSchema = new mongoose.Schema({
       required: true,
     },
   },
-  
-// setting up the auth
 
-user:{
-  id:{
-    type:mongoose.Schema.Types.ObjectId
-  },
-  name:{
-    type:String,
-  },
-  email:{
-    type:String
-  }
-}
+  // setting up the auth
 
+  user: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+  },
 });
 
-
-const featureModel = mongoose.model("Feature",FeatureSchema)
-module.exports = featureModel
+const featureModel = mongoose.model("Feature", FeatureSchema);
+module.exports = featureModel;
