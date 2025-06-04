@@ -1,4 +1,4 @@
-// console.log("Welcome to the Node.js application!");
+
 const express = require("express");
 const CORS = require("cors")
 const path = require("path");
