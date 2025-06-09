@@ -1,12 +1,10 @@
-
 const express = require("express");
-const CORS = require("cors")
+const CORS = require("cors");
 const path = require("path");
 const { Server } = require("socket.io");
 const http = require("http");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
 
 dotenv.config();
 
@@ -14,22 +12,22 @@ const app = express();
 
 mongoose.set("strictQuery", false);
 
-
 app.use(express.json());
 
-app.use(CORS({
-  origin:function(origin,callback){
-    return callback(null,true)
-  },
-  optionsSuccessStatus:200,
-  credentials:true,
-}))
-
+app.use(
+  CORS({
+    origin: function (origin, callback) {
+      return callback(null, true);
+    },
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
 
 const server = http.createServer(app);
 const io = new Server(server);
 const PORT = process.env.PORT || 3000;
-const mongoURI = process.env.MONGO_DB_URI; 
+const mongoURI = process.env.MONGO_DB_URI;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
