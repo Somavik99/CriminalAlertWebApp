@@ -36,7 +36,7 @@ export async function registerUser(req, res, next) {
 }
 
 export async function loginUser(req, res, next) {
-  const { email, password } = req.body;
+  const { email } = req.body;
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -45,7 +45,7 @@ export async function loginUser(req, res, next) {
         .json({ success: false, message: "User not registered...!" });
     }
     const isPasswordMatching = await bcrypt.compare(
-      password.toString(),
+      req.body.password.toString(),
       user.password
     );
     if (!isPasswordMatching) {
