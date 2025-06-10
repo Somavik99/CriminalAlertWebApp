@@ -29,7 +29,7 @@ export async function authUserVerification(req, res, next) {
   }
 }
 
-const restrictedUserVerification = (role) => async (req, res, next) => {
+export const restrictedUserVerification = (role) => async (req, res, next) => {
   try {
     const userID = req.userId;
     const uniqueUser = await User.findById(userID);
