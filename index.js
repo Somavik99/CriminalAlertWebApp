@@ -4,7 +4,7 @@ const path = require("path");
 const { Server } = require("socket.io");
 const http = require("http");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv");0
 
 dotenv.config();
 

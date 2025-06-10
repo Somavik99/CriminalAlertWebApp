@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../Schema/usersSchema");
 
-
 export async function authUserVerification(req, res, next) {
   const authUserToken = req.headers.authorization;
   if (!authUserToken || !authUserToken.startsWith("Bearer")) {
@@ -30,5 +29,25 @@ export async function authUserVerification(req, res, next) {
   }
 }
 
+const restrictedUserVerification = (role) => async (req, res, next) => {
+  try {
+    const userID = req.userId;
+    const uniqueUser = await User.findById(userID);
+    if (!uniqueUser) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
 
-
+    const userRole = uniqueUser.role;
+    userRole === "user" && userRole.includes("user")
+      ? next()
+      : userRole === "admin" && userRole.includes("admin")
+      ? next()
+      : res
+          .status(401)
+          .json({ success: false, message: "User not authorized...!" });
+  } catch (err) {
+    res.json().status({ success: false, message: "Internal server error...!" });
+  }
+};
